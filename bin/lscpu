@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for lscpu
+exec unix-distro uutils-dispatch lscpu "$@"

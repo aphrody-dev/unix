@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for sha256sum
+exec unix-distro uutils-dispatch sha256sum "$@"

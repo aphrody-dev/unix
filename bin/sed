@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for sed
+exec unix-distro uutils-dispatch sed "$@"

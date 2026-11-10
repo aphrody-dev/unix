@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for dmesg
+exec unix-distro uutils-dispatch dmesg "$@"

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for tail
+exec unix-distro uutils-dispatch tail "$@"

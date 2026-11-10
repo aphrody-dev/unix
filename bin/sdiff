@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for sdiff
+exec unix-distro uutils-dispatch sdiff "$@"

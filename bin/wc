@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for wc
+exec unix-distro uutils-dispatch wc "$@"

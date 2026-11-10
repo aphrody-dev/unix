@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for top
+exec unix-distro uutils-dispatch top "$@"

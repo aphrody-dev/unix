@@ -1,0 +1,11 @@
+[package]
+name = "unix-cachyos"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CachyOS hardware detection, pacman/makepkg configuration, and Proton/Wine/EAC runtime orchestrator"
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+raw-cpuid.workspace = true

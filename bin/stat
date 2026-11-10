@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for stat
+exec unix-distro uutils-dispatch stat "$@"

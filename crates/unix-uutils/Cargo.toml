@@ -1,0 +1,10 @@
+[package]
+name = "unix-uutils"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Unified All-GNU-in-Rust userland dispatcher and profile generator"
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true

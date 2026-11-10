@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for tr
+exec unix-distro uutils-dispatch tr "$@"

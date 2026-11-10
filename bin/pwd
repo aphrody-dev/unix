@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for pwd
+exec unix-distro uutils-dispatch pwd "$@"

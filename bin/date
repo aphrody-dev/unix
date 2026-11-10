@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for date
+exec unix-distro uutils-dispatch date "$@"

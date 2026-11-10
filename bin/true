@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for true
+exec unix-distro uutils-dispatch true "$@"

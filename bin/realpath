@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for realpath
+exec unix-distro uutils-dispatch realpath "$@"

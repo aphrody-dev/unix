@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for ps
+exec unix-distro uutils-dispatch ps "$@"

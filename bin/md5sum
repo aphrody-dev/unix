@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for md5sum
+exec unix-distro uutils-dispatch md5sum "$@"

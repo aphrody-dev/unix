@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for xargs
+exec unix-distro uutils-dispatch xargs "$@"

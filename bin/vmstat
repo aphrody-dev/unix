@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for vmstat
+exec unix-distro uutils-dispatch vmstat "$@"

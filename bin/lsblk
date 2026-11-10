@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for lsblk
+exec unix-distro uutils-dispatch lsblk "$@"

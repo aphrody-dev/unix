@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for pgrep
+exec unix-distro uutils-dispatch pgrep "$@"

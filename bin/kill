@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for kill
+exec unix-distro uutils-dispatch kill "$@"

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for pkill
+exec unix-distro uutils-dispatch pkill "$@"

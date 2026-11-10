@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for tee
+exec unix-distro uutils-dispatch tee "$@"

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for rm
+exec unix-distro uutils-dispatch rm "$@"

@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for mv
+exec unix-distro uutils-dispatch mv "$@"

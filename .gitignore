@@ -1,0 +1,18 @@
+# Rust build artifacts
+target/
+Cargo.lock
+
+# .NET build artifacts
+winnt-sdk/**/bin/
+winnt-sdk/**/obj/
+*.user
+*.suo
+
+# C++ MSVC artifacts
+*.obj
+*.exp
+*.pdb
+*.ilk
+
+# Upstream cloned subtrees
+upstream/

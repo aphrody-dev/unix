@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for unshare
+exec unix-distro uutils-dispatch unshare "$@"

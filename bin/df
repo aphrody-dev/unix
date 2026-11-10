@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for df
+exec unix-distro uutils-dispatch df "$@"

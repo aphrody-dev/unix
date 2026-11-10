@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for cp
+exec unix-distro uutils-dispatch cp "$@"

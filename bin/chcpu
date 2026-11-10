@@ -1,0 +1,3 @@
+#!/bin/sh
+# Sovereign uutils dispatcher shim for chcpu
+exec unix-distro uutils-dispatch chcpu "$@"
