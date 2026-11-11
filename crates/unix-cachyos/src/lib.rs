@@ -3,6 +3,13 @@ use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use thiserror::Error;
 
+pub mod discovery;
+pub use discovery::{
+    AwesomeListCategory, AwesomeListEntry, KernelVariant2026, NonCKernel, PosixDiscoveryCatalog,
+    build_posix_discovery_catalog, count_local_patch_files, probe_git_head_sha,
+    write_posix_discovery_catalog,
+};
+
 #[derive(Error, Debug)]
 pub enum CachyOsError {
     #[error("Hardware detection error: {0}")]
