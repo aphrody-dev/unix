@@ -1,109 +1,85 @@
-# Sovereign Unix Distribution & Windows NT / GPU Runtime (Pillar 1)
+# Sovereign Unix Distribution: Omarchy + CachyOS + Arch Linux GitLab WSL2 Engine
 
-Production-grade sovereign Unix distribution combining Linux Kernel `v7.4-rc2`, CachyOS BORE/sched-ext optimizations, All-GNU-in-Rust (`uutils`), .NET 11/.NET 10 multi-targeted WinUI host, and native MSVC C++23 hardware acceleration on Windows NT & NVIDIA Ada Lovelace (`sm_89`).
+Production-grade Rust 2024 Unix distribution and native WSL2 runtime fusing:
+- **Omarchy (`omacom`)**: Aether theme compiler (23 canonical themes + 2 sovereign themes), 16 built-in Quickshell plugins, and streaming search over the 6,443-source community plugin marketplace.
+- **CachyOS (`CachyOS` + `cachyos-wsl`)**: Raptor Lake (`x86-64-v3` AVX2/FMA3/BMI2) `[cachyos-v3]` repositories, Linux `7.4` BORE / `sched-ext` / `dkms-clang` / NVIDIA `sm_89` kernel patch series, `ananicy-cpp`, and Proton-CachyOS `/dev/ntsync` gaming orchestration.
+- **Arch Linux GitLab (`gitlab.archlinux.org/archlinux`)**: Unified `devtools` / `pkgctl` clean-chroot PKGBUILD synthesis and reproducible `.wsl` image builder.
+- **Native Zero-Overhead WSL2 + D3D12 `/dev/dxg`**: Replaces QEMU/WHPX `TryOmarchy.exe` with native WSL2 Hyper-V VMBus + Direct3D 12 Ultimate `/dev/dxg` GPU-PV + Rust WSLg (`C:\src\crates\wayland`).
+- **All-GNU-in-Rust (`uutils`) + Windows NT / GPU SDK**: 73 isolated POSIX utilities plus MSVC 14.51 C++23 and .NET 11/10 WinUI host bridges.
 
 ---
 
-## Architecture Overview
+## Workspace Layout (`C:\src\crates\unix`)
 
 ```
-C:\src\
-├── linux\                                  # Linux Kernel v7.4-rc2 (Upstream Torvalds)
-│   ├── Makefile                            # VERSION = 7, PATCHLEVEL = 4, EXTRAVERSION = -rc2
-│   └── arch\x86\configs\
-│       └── cachyos_sm89_wsl2_baremetal.config # Production CachyOS kernel config fragment
-│
-└── unix\                                   # Sovereign Unix Distribution Workspace
-    ├── Cargo.toml                          # Unified Rust Workspace
-    ├── distro.ts                           # Bun FFI & Orchestration Runner
-    ├── native_nt_gpu.dll                   # Compiled MSVC C++23 Native Hardware Bridge
-    ├── bin\                                # Isolated All-GNU-in-Rust executable shims (73 utilities)
-    │   ├── env.ps1                         # PowerShell environment activation
-    │   ├── env.sh                          # POSIX shell environment activation
-    │   └── *.cmd                           # Non-intrusive command dispatchers
-    │
-    ├── crates\
-    │   ├── unix-uutils\                    # All-GNU-in-Rust userland catalog & dispatch engine
-    │   ├── unix-cachyos\                   # Hardware probe (chwd), pacman/makepkg & Proton orchestrator
-    │   └── unix-distro\                    # Unified sovereign distro management CLI
-    │
-    ├── winnt-sdk\
-    │   ├── native-cpp\                     # MSVC 14.51 C++23 / C23 Hardware Bridge
-    │   │   ├── native_nt_gpu.h
-    │   │   ├── native_nt_gpu.cpp
-    │   │   ├── main.cpp
-    │   │   └── build.cmd                   # cl.exe /std:c++latest /arch:AVX2 /O2
-    │   │
-    │   └── DotNetWinUiHost\                # .NET 11 & .NET 10 Multi-Targeted Host
-    │       ├── DotNetWinUiHost.csproj      # net11.0 + net10.0 NativeAOT-ready
-    │       └── Program.cs                  # LibraryImport P/Invoke into WinUI, dcomp, NT kernel
-    │
-    ├── upstream\                           # Minimal shallow clones of upstream references
-    │   ├── chwd\                           # CachyOS Hardware Detection
-    │   ├── CachyOS-Settings\               # Sysctl, udev, scheduler settings
-    │   └── coreutils\                      # Upstream uutils/coreutils reference
-    │
-    └── tests\
-        └── distro.test.ts                  # Bun test suite verifying all 7 subsystems
+C:\src\crates\unix\
+├── Cargo.toml                  # Rust 2024 workspace
+├── crates\
+│   ├── unix-uutils\            # 73 All-GNU-in-Rust utilities & isolated shim installer
+│   ├── unix-cachyos\           # chwd CPU/GPU hardware probe, pacman/makepkg, Proton/Wine ntsync
+│   ├── unix-omarchy\           # crate `aphrody-omarchy`: Aether themes, plugins, patches, WSL2 builder
+│   └── unix-distro\            # CLIs: `unix-distro.exe` and `omarchy-wsl.exe`
+├── wsl-distro\                 # Generated native WSL2 bundle (.wslconfig, rootfs, Hyprland/COSMIC, patches)
+├── bin\                        # Isolated userland utility shims (never touches C:\Windows\System32)
+└── winnt-sdk\                  # MSVC C++23 `native_nt_gpu.dll` + .NET 11/10 WinUI Host
 ```
 
 ---
 
-## Subsystem Details
+## Crate `aphrody-omarchy` (`crates/unix-omarchy`)
 
-### 1. Linux Kernel `v7.4-rc2` (`C:\src\linux`)
-- Upstream Git tree: `https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git`
-- Cone Sparse-Checkout: `rust`, `arch/x86/configs`, `drivers/hv/dxgkrnl`, `drivers/gpu/drm/nouveau`, `kernel/sched`, `include/uapi/linux`, `scripts`.
-- Production Config Fragment: `arch/x86/configs/cachyos_sm89_wsl2_baremetal.config`:
-  - `CONFIG_RUST=y`, `CONFIG_SCHED_CLASS_EXT=y`, `CONFIG_SCHED_BORE=y`
-  - `CONFIG_MNATIVE_INTEL=y`, `CONFIG_X86_INTEL_PSTATE=y`, `CONFIG_INTEL_HFI_THERMAL=y`
-  - `CONFIG_NTSYNC=y` (`/dev/ntsync` native Wine/Proton NT synchronization primitive)
-  - `CONFIG_SECCOMP=y`, `CONFIG_GENERIC_ENTRY=y` (`PR_SET_SYSCALL_USER_DISPATCH` for Easy Anti-Cheat & BattlEye)
-  - `CONFIG_DXGKRNL=y` (`/dev/dxg` DirectX 12 GPU-PV bridge)
-  - `CONFIG_LRU_GEN=y` (MGLRU), `CONFIG_HZ_1000=y`, `CONFIG_PREEMPT_FULL=y`
-
-### 2. CachyOS & All-GNU-in-Rust Distribution (`C:\src\unix`)
-- **`unix-uutils`**: Catalogs and dispatches 73 GNU utilities re-implemented in pure Rust across Coreutils, Findutils, Diffutils, Sed, Procps, and Util-Linux. Binaries and shims are strictly isolated in `C:\src\unix\bin` without modifying `C:\Windows\System32`.
-- **`unix-cachyos`**:
-  - `chwd`-compatible hardware probe: detects Intel Core i7-13700F (`x86-64-v3` AVX2/FMA3/BMI2) and NVIDIA GeForce RTX 4070 (PCI `10de:2786`, Ada Lovelace `sm_89`, 12 GB VRAM).
-  - Generates optimized `pacman.conf` with `[cachyos-v3]`, `[cachyos-core-v3]`, and `[cachyos-extra-v3]`.
-  - Generates `makepkg.conf` targeting Raptor Lake: `-march=raptorlake -O3 -pipe -fno-plt -flto=thin -fexceptions -Wp,-D_FORTIFY_SOURCE=3`.
-  - Generates scheduler configuration for `scx_lavd` and `BORE`.
-  - Proton-CachyOS / Wine orchestrator: configures `PROTON_USE_NTSYNC=1`, `PROTON_EAC_RUNTIME=1`, `WINE_FULLSCREEN_FSR=1`, `DXVK_NVAPI_ALLOW_OTHER_DRIVERS=1`, `PROTON_ENABLE_NVAPI=1`, `PROTON_ENABLE_WAYLAND=1`, and verifies `PR_SET_SYSCALL_USER_DISPATCH`.
-
-### 3. Windows NT SDK + WinUI Core + MSVC C++23 Native Bridge
-- **MSVC 14.51 C++23 Library (`native_nt_gpu.dll`)**:
-  - Compiled using `cl.exe /std:c++latest /arch:AVX2 /O2 /LD`.
-  - Uses `ntdll.dll` (`RtlGetVersion`) to detect exact Windows NT build.
-  - Uses `dxgi.dll` (`CreateDXGIFactory2` and `EnumAdapters1`) to query NVIDIA GeForce RTX 4070 dedicated VRAM (12010 MB).
-  - Uses `CoreMessaging.dll` (`CreateDispatcherQueueController`) to initialize WinUI Core dedicated STA event loop.
-- **.NET 11 & .NET 10 Multi-Targeted Host (`DotNetWinUiHost`)**:
-  - Multi-targets `<TargetFrameworks>net11.0;net10.0</TargetFrameworks>` with `<LangVersion>preview</LangVersion>`.
-  - Uses source-generated `[LibraryImport]` P/Invoke into `kernel32.dll`, `CoreMessaging.dll`, `dcomp.dll`, and `native_nt_gpu.dll`.
-  - Ready for NativeAOT compilation.
-
-### 4. Bun Native Orchestrator (`distro.ts`)
-- Leverages `bun:ffi` (`dlopen`) to interact directly with `native_nt_gpu.dll`.
-- Orchestrates Rust `unix-distro`, `.NET 11`, and Linux `v7.4-rc2` kernel configs.
-- Validated via `bun test` in `tests/distro.test.ts`.
+1. **Aether-in-Rust Theme Compiler (`themes.rs`)**:
+   - Parses upstream Omarchy `colors.toml` palettes from `C:\src\third_party\omacom\omarchy\themes\*\colors.toml` and embeds all 23 canonical Omarchy themes plus 2 sovereign presets (`aphrody-m3-dark`, `cachyos-emerald`) for standalone zero-dependency execution.
+   - Compiles any `ColorsToml` simultaneously into 6 target formats:
+     1. `hyprland-colors.conf` (`col.active_border`, `col.inactive_border`, shadow, `groupbar`)
+     2. `cosmic-theme.ron` (COSMIC Desktop RON theme)
+     3. `bar.css` (Waybar / Quickshell CSS)
+     4. `terminal.toml` (Alacritty / Rio / Ghostty TOML)
+     5. `aether-theme.lua` (Neovim `omacom/aether.nvim` Lua spec)
+     6. `theme.css` (CSS Custom Properties for Web/TUI preview)
+2. **Plugin & Marketplace Engine (`plugins.rs`)**:
+   - Catalogs all 16 built-in Omarchy shell plugins (`agents`, `background`, `bar`, `clipboard`, `dev-gallery`, `dock`, `emojis`, `image-picker`, `lock`, `menu`, `notifications`, `osd`, `panels`, `polkit`, `reminders`, `services`).
+   - Streams `C:\src\third_party\omacom\omarchy-plugin-marketplace\registry.json` (6,443 community sources) with sub-second filtering and scaffolds new Quickshell plugins (`manifest.json` + QML entry point).
+3. **Arch GitLab + CachyOS + Omarchy Package & Patch Engine (`packages.rs`)**:
+   - Synthesizes unified repository manifests across `[cachyos-v3]`, `[cachyos-core-v3]`, `[cachyos-extra-v3]`, `[omarchy]`, and Arch `[core]`/`[extra]`/`[multilib]`.
+   - Verifies and emits the Linux `7.4` kernel patch series (`0001-bore-cachy.patch`, `0001-prjc-cachy.patch`, `dkms-clang.patch`, `nvidia/0005-Fix-build-on-Linux-7.4.patch`, `0001-aufs-7.4-merge-v20260914.patch`, `0001-acpi-call.patch`) alongside the WSL2 `/dev/dxg` + `hv_sock` + `virtio_fs` + `/dev/ntsync` kconfig fragment.
+4. **Native WSL2 Distro Builder & Launcher (`wsl.rs`)**:
+   - Emits `.wslconfig` (`memory=24GB`, `processors=24`, `networkingMode=mirrored`, `dnsTunneling=true`, `autoProxy=true`, `guiApplications=true`, custom `bzImage-7.4-cachyos-omarchy`), `rootfs/etc/wsl.conf` (`systemd=true`), `rootfs/etc/wsl-distribution.conf` (`oobe` command `/usr/lib/wsl/first-setup-aphrody-omarchy.sh`, default user `aphrody`), `zram-generator.conf`, Hyper-V `getty@.service` unit masks, and reproducible `build-aphrody-omarchy-wsl.sh`.
+   - Orchestrates `wsl.exe --install --from-file` / `wsl.exe --import` with automatic dry-run safety and live `wsl --list` inspection.
 
 ---
 
-## Verification Commands
+## CLI Usage (`omarchy-wsl` & `unix-distro`)
+
+Installed in `C:\Users\aphro\.local\bin\omarchy-wsl.exe` and `C:\Users\aphro\.local\bin\unix-distro.exe`:
 
 ```powershell
-# 1. Cargo Tests
-cargo test --manifest-path C:\src\unix\Cargo.toml --target-dir C:\src\unix\target
+# List all 25 Omarchy + Sovereign Aether themes and export Tokyo Night
+omarchy-wsl themes list
+omarchy-wsl themes export tokyo-night --out C:\src\crates\unix\wsl-distro\theme-tokyo-night
 
-# 2. MSVC C++23 Compile & Run
-cmd /c "C:\src\unix\winnt-sdk\native-cpp\build.cmd"
+# Search built-in (16) and community marketplace (6,443) plugins
+omarchy-wsl plugins list --query hypr --limit 10
 
-# 3. .NET 11 & .NET 10 Multi-Target Build & Run
-dotnet build C:\src\unix\winnt-sdk\DotNetWinUiHost\DotNetWinUiHost.csproj
-dotnet run --project C:\src\unix\winnt-sdk\DotNetWinUiHost\DotNetWinUiHost.csproj --framework net11.0
-dotnet run --project C:\src\unix\winnt-sdk\DotNetWinUiHost\DotNetWinUiHost.csproj --framework net10.0
+# Inspect and generate Linux 7.4 CachyOS + WSL2 kernel patch series
+omarchy-wsl patches list --kernel 7.4
+omarchy-wsl patches generate-series --out C:\src\crates\unix\wsl-distro\patches
 
-# 4. Bun Test Suite
-cd C:\src\unix
-bun test
+# Generate full native WSL2 distribution bundle
+omarchy-wsl wsl generate-bundle --out C:\src\crates\unix\wsl-distro
+
+# Generate Arch GitLab + CachyOS v3 + Omarchy sync manifest
+omarchy-wsl arch gitlab-sync-manifest --out C:\src\crates\unix\wsl-distro\arch-gitlab-manifest.json
+
+# Run full ecosystem diagnostics
+omarchy-wsl doctor
+unix-distro status
+```
+
+---
+
+## Verification
+
+```powershell
+cargo test --workspace --manifest-path C:\src\crates\unix\Cargo.toml
 ```

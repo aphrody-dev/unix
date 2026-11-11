@@ -1,0 +1,14 @@
+# Systemd unit masks required for clean Hyper-V / WSL2 boot without TTY contention
+# Ref: CachyOS/cachyos-wsl & microsoft/WSL#13595
+console-getty.service
+getty@.service
+serial-getty@.service
+systemd-firstboot.service
+systemd-networkd.service
+systemd-networkd-wait-online.service
+systemd-resolved.service
+systemd-tmpfiles-clean.service
+systemd-tmpfiles-setup.service
+systemd-tmpfiles-setup-dev.service
+systemd-tmpfiles-setup-dev-early.service
+tmp.mount

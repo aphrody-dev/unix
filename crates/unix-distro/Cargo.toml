@@ -3,11 +3,12 @@ name = "unix-distro"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Sovereign Unix Distribution management CLI and orchestrator"
+description = "Sovereign Unix Distribution & Omarchy/CachyOS/Arch WSL2 management CLI"
 
 [dependencies]
 unix-uutils = { path = "../unix-uutils" }
 unix-cachyos = { path = "../unix-cachyos" }
+aphrody-omarchy = { path = "../unix-omarchy" }
 serde.workspace = true
 serde_json.workspace = true
 clap.workspace = true
@@ -16,3 +17,7 @@ anyhow.workspace = true
 [[bin]]
 name = "unix-distro"
 path = "src/main.rs"
+
+[[bin]]
+name = "omarchy-wsl"
+path = "src/bin/omarchy_wsl.rs"

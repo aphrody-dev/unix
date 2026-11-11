@@ -1,0 +1,23 @@
+/* Aether-in-Rust Waybar & Quickshell Stylesheet: tokyo-night */
+@define-color background #1a1b26;
+@define-color dark_background #13141c;
+@define-color darker_background #0e0e14;
+@define-color lighter_background #24283b;
+@define-color foreground #a9b1d6;
+@define-color accent #7aa2f7;
+@define-color selection #292e42;
+@define-color muted #414868;
+@define-color urgent #f7768e;
+@define-color warning #e0af68;
+@define-color success #9ece6a;
+
+window#waybar, .omarchy-bar {
+    background-color: @background;
+    color: @foreground;
+    border-bottom: 1px solid @lighter_background;
+}
+
+#workspaces button.active {
+    color: @accent;
+    background-color: @selection;
+}

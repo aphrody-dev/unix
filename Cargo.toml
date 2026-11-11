@@ -2,6 +2,7 @@
 members = [
     "crates/unix-uutils",
     "crates/unix-cachyos",
+    "crates/unix-omarchy",
     "crates/unix-distro",
 ]
 resolver = "2"

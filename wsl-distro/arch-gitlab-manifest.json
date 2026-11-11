@@ -1,0 +1,185 @@
+{
+  "distro_id": "aphrody-omarchy-cachyos-wsl2",
+  "kernel_target": "7.4.0-rc2-cachyos-omarchy-wsl2",
+  "arch_tier": "x86-64-v3 (Raptor Lake AVX2/FMA3/BMI2)",
+  "repositories": [
+    {
+      "name": "cachyos-v3",
+      "tier": "x86-64-v3 (AVX2/FMA3/BMI2)",
+      "upstream_url": "https://github.com/CachyOS/CachyOS-PKGBUILDS",
+      "mirror_include": "Include = /etc/pacman.d/cachyos-v3-mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "cachyos-core-v3",
+      "tier": "x86-64-v3 (AVX2/FMA3/BMI2)",
+      "upstream_url": "https://github.com/CachyOS/CachyOS-PKGBUILDS",
+      "mirror_include": "Include = /etc/pacman.d/cachyos-v3-mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "cachyos-extra-v3",
+      "tier": "x86-64-v3 (AVX2/FMA3/BMI2)",
+      "upstream_url": "https://github.com/CachyOS/CachyOS-PKGBUILDS",
+      "mirror_include": "Include = /etc/pacman.d/cachyos-v3-mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "cachyos",
+      "tier": "x86-64-generic",
+      "upstream_url": "https://github.com/CachyOS/CachyOS-PKGBUILDS",
+      "mirror_include": "Include = /etc/pacman.d/cachyos-mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "omarchy",
+      "tier": "x86-64-omarchy-quattro",
+      "upstream_url": "https://github.com/omacom/omarchy-pkgs",
+      "mirror_include": "Server = https://pkgs.omarchy.org/stable/$arch",
+      "sig_level": "Optional TrustAll"
+    },
+    {
+      "name": "core",
+      "tier": "archlinux-gitlab",
+      "upstream_url": "https://gitlab.archlinux.org/archlinux/packaging/packages",
+      "mirror_include": "Include = /etc/pacman.d/mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "extra",
+      "tier": "archlinux-gitlab",
+      "upstream_url": "https://gitlab.archlinux.org/archlinux/packaging/packages",
+      "mirror_include": "Include = /etc/pacman.d/mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    },
+    {
+      "name": "multilib",
+      "tier": "archlinux-gitlab",
+      "upstream_url": "https://gitlab.archlinux.org/archlinux/packaging/packages",
+      "mirror_include": "Include = /etc/pacman.d/mirrorlist",
+      "sig_level": "Required DatabaseOptional"
+    }
+  ],
+  "cachyos_pkgbuilds_count": 138,
+  "omarchy_pkgbuilds_count": 286,
+  "core_packages": [
+    {
+      "pkgbase": "linux",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/linux",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/linux-cachyos",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-core-v3 --arch x86_64_v3 linux",
+      "target_repo": "cachyos-core-v3"
+    },
+    {
+      "pkgbase": "pacman",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/pacman",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/pacman",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-core-v3 --arch x86_64_v3 pacman",
+      "target_repo": "cachyos-core-v3"
+    },
+    {
+      "pkgbase": "devtools",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/devtools",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/devtools",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-extra-v3 --arch x86_64_v3 devtools",
+      "target_repo": "cachyos-extra-v3"
+    },
+    {
+      "pkgbase": "mkinitcpio",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/mkinitcpio",
+      "cachyos_pkgbuild_override": null,
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo core --arch x86_64_v3 mkinitcpio",
+      "target_repo": "core"
+    },
+    {
+      "pkgbase": "archinstall",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/archinstall",
+      "cachyos_pkgbuild_override": null,
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo extra --arch x86_64_v3 archinstall",
+      "target_repo": "extra"
+    },
+    {
+      "pkgbase": "hyprland",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/hyprland",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/cachyos-hyprland-settings",
+      "omarchy_pkgbuild_override": "omarchy-pkgs/pkgbuilds/hyprland",
+      "chroot_build_cmd": "pkgctl build --repo omarchy --arch x86_64_v3 hyprland",
+      "target_repo": "omarchy"
+    },
+    {
+      "pkgbase": "cosmic-session",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/cosmic-session",
+      "cachyos_pkgbuild_override": null,
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo extra --arch x86_64_v3 cosmic-session",
+      "target_repo": "extra"
+    },
+    {
+      "pkgbase": "mesa",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/mesa",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/mesa",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-v3 --arch x86_64_v3 mesa",
+      "target_repo": "cachyos-v3"
+    },
+    {
+      "pkgbase": "quickshell",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/quickshell",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/quickshell-git",
+      "omarchy_pkgbuild_override": "omarchy-pkgs/pkgbuilds/omarchy-shell",
+      "chroot_build_cmd": "pkgctl build --repo omarchy --arch x86_64_v3 quickshell",
+      "target_repo": "omarchy"
+    },
+    {
+      "pkgbase": "aether",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/aether",
+      "cachyos_pkgbuild_override": null,
+      "omarchy_pkgbuild_override": "omarchy-pkgs/pkgbuilds/aether",
+      "chroot_build_cmd": "pkgctl build --repo omarchy --arch x86_64_v3 aether",
+      "target_repo": "omarchy"
+    },
+    {
+      "pkgbase": "ghostty",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/ghostty",
+      "cachyos_pkgbuild_override": null,
+      "omarchy_pkgbuild_override": "omarchy-pkgs/pkgbuilds/ghostty",
+      "chroot_build_cmd": "pkgctl build --repo omarchy --arch x86_64_v3 ghostty",
+      "target_repo": "omarchy"
+    },
+    {
+      "pkgbase": "scx-scheds",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/scx-scheds",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/scx",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-v3 --arch x86_64_v3 scx-scheds",
+      "target_repo": "cachyos-v3"
+    },
+    {
+      "pkgbase": "ananicy-cpp",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/ananicy-cpp",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/cachyos-ananicy-rules",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-v3 --arch x86_64_v3 ananicy-cpp",
+      "target_repo": "cachyos-v3"
+    },
+    {
+      "pkgbase": "wine",
+      "arch_gitlab_url": "https://gitlab.archlinux.org/archlinux/packaging/packages/wine",
+      "cachyos_pkgbuild_override": "CachyOS-PKGBUILDS/wine-cachyos",
+      "omarchy_pkgbuild_override": null,
+      "chroot_build_cmd": "pkgctl build --repo cachyos-v3 --arch x86_64_v3 wine",
+      "target_repo": "cachyos-v3"
+    }
+  ],
+  "devtools_chroot_workflow": [
+    "pkgctl repo clone --protocol=https linux hyprland cosmic-session pacman devtools",
+    "cachy-chroot /var/lib/archbuild/cachyos-v3-x86_64/root pacman -Syu --noconfirm",
+    "extra-x86_64-build -r /var/lib/archbuild/cachyos-v3 -- -m -C /etc/makepkg-raptorlake.conf",
+    "repo-add -s -v /srv/repo/aphrody-omarchy/x86_64_v3/aphrody-omarchy.db.tar.zst *.pkg.tar.zst"
+  ]
+}

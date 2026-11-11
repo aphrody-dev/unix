@@ -1,0 +1,7 @@
+# Linux 7.4 CachyOS + Omarchy + WSL2 Quilt/Git Patch Series
+sched/0001-bore-cachy.patch
+sched/0001-prjc-cachy.patch
+misc/dkms-clang.patch
+misc/nvidia/0005-Fix-build-on-Linux-7.4.patch
+misc/0001-aufs-7.4-merge-v20260914.patch
+misc/0001-acpi-call.patch

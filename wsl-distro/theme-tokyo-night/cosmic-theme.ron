@@ -1,0 +1,12 @@
+(
+    name: "Omarchy Aether - tokyo-night",
+    is_dark: true,
+    primary: (red: 0.4784, green: 0.6353, blue: 0.9686, alpha: 1.0000),
+    on_primary: (red: 0.0549, green: 0.0549, blue: 0.0784, alpha: 1.0000),
+    surface: (red: 0.1020, green: 0.1059, blue: 0.1490, alpha: 1.0000),
+    on_surface: (red: 0.6627, green: 0.6941, blue: 0.8392, alpha: 1.0000),
+    surface_container: (red: 0.1412, green: 0.1569, blue: 0.2314, alpha: 1.0000),
+    outline: (red: 0.2549, green: 0.2824, blue: 0.4078, alpha: 1.0000),
+    corner_radius: 12.0,
+    spacing: 8.0,
+)

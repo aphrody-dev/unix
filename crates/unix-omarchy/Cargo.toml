@@ -1,0 +1,12 @@
+[package]
+name = "aphrody-omarchy"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Sovereign Omarchy + CachyOS + Arch Linux GitLab fusion engine: Aether theme compiler, plugin marketplace scanner, PKGBUILD synthesizer, and native WSL2 distro builder"
+
+[dependencies]
+unix-cachyos = { path = "../unix-cachyos" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true

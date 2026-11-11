@@ -1,0 +1,22 @@
+# Maintainer: Aphrody Sovereign OS
+pkgbase=linux-cachyos-omarchy-wsl2
+pkgname=("${pkgbase}" "${pkgbase}-headers")
+pkgver=7.4.0.rc2
+pkgrel=1
+pkgdesc='Linux 7.4 kernel with CachyOS BORE/sched-ext, NVIDIA sm_89, /dev/ntsync, and WSL2 /dev/dxg Direct3D 12 zero-copy bridge'
+arch=(x86_64_v3 x86_64)
+url='https://gitlab.archlinux.org/archlinux/packaging/packages/linux'
+license=(GPL-2.0-only)
+makedepends=(bc cpio gettext libelf pahole perl python rust rust-bindgen rust-src tar xz zstd clang llvm lld)
+options=(!debug !strip)
+source=(
+  '0001-bore-cachy.patch'
+  'dkms-clang.patch'
+  '0005-Fix-build-on-Linux-7.4.patch'
+  'wsl2-cachyos-omarchy-7.4.config'
+)
+sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+
+build() {
+  make LLVM=1 -C "${srcdir}/linux" -j"$(nproc)" bzImage modules
+}

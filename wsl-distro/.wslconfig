@@ -1,0 +1,19 @@
+# %USERPROFILE%\.wslconfig - Sovereign Native WSL2 Zero-Overhead Profile
+# Replaces QEMU/WHPX TryOmarchy.exe with direct Hyper-V VMBus + /dev/dxg D3D12 GPU-PV
+[wsl2]
+kernel=C:\\src\\crates\\unix\\wsl\\bzImage-7.4-cachyos-omarchy
+memory=24GB
+processors=24
+networkingMode=mirrored
+dnsTunneling=true
+autoProxy=true
+firewall=true
+guiApplications=true
+nestedVirtualization=true
+pageReporting=true
+kernelCommandLine=cgroup_no_v1=all systemd.unified_cgroup_hierarchy=1 mitigations=off nowatchdog
+
+[experimental]
+autoMemoryReclaim=gradual
+sparseVhd=true
+hostAddressLoopback=true

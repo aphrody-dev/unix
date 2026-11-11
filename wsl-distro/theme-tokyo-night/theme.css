@@ -1,0 +1,24 @@
+/* Aether-in-Rust CSS Custom Properties: tokyo-night (dark) */
+:root,
+[data-omarchy-theme="tokyo-night"] {
+  --omarchy-mode: "dark";
+  --omarchy-accent: #7aa2f7;
+  --omarchy-selection: #292e42;
+  --omarchy-muted: #414868;
+  --omarchy-bg: #1a1b26;
+  --omarchy-bg-dark: #13141c;
+  --omarchy-bg-darker: #0e0e14;
+  --omarchy-bg-lighter: #24283b;
+  --omarchy-fg: #a9b1d6;
+  --omarchy-fg-dark: #565f89;
+  --omarchy-fg-light: #b4bee6;
+  --omarchy-fg-bright: #c0caf5;
+  --omarchy-red: #f7768e;
+  --omarchy-yellow: #e0af68;
+  --omarchy-orange: #eb927b;
+  --omarchy-green: #9ece6a;
+  --omarchy-cyan: #449dab;
+  --omarchy-blue: #7aa2f7;
+  --omarchy-magenta: #ad8ee6;
+  --omarchy-brown: #75493d;
+}
